@@ -95,8 +95,9 @@ export function activate(context: vscode.ExtensionContext) {
 			const projectsArray = additionalProjects.replace(' ', '').split(',');
 			let projectsQueryString: string = project;
 			projectsArray.forEach((project: string) => {
-				if (project.trim().length !== 0) {
-					projectsQueryString += "&project=" + project;
+				let trimmedProject = project.trim();
+				if (trimmedProject.length !== 0) {
+					projectsQueryString += "&project=" + trimmedProject;
 				}				
 			});
 			const query = url + "/search?project=" + projectsQueryString + "&q=" + selectedText + "&defs=&refs=&path=&hist=&type=";
