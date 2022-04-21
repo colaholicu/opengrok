@@ -32,6 +32,7 @@ export function activate(context: vscode.ExtensionContext) {
 		if (editor) {
 			const filePath = editor.document.uri.path;
 			const line = editor.selection.active.line;
+			const line = editor.selection.active.line + 1;
 			let relativePath = '';
 			if(vscode.workspace.workspaceFolders !== undefined) {
 				const rootPath = vscode.workspace.workspaceFolders[0].uri.path ;
