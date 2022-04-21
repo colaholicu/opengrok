@@ -31,7 +31,6 @@ export function activate(context: vscode.ExtensionContext) {
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const filePath = editor.document.uri.path;
-			const line = editor.selection.active.line;
 			const line = editor.selection.active.line + 1;
 			let relativePath = '';
 			if(vscode.workspace.workspaceFolders !== undefined) {
