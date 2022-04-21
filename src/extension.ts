@@ -17,6 +17,36 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
+	let openAtLine = vscode.commands.registerCommand('opengrok.openFileAtLine', () => {
+		const {url, project} = getConfig();
+		if (!url) {
+			vscode.window.showErrorMessage("Server URL is empty.");
+			return;
+		}
+		if (!project) {
+			vscode.window.showErrorMessage("Default Project is not set.");
+			return;
+		}
+
+		const editor = vscode.window.activeTextEditor;
+		if (editor) {
+			const filePath = editor.document.uri.path;
+			const line = editor.selection.active.line;
+			let relativePath = '';
+			if(vscode.workspace.workspaceFolders !== undefined) {
+				const rootPath = vscode.workspace.workspaceFolders[0].uri.path ;
+				relativePath = filePath.split(rootPath)[1];
+			}
+			else {
+				vscode.window.showErrorMessage("An error occured when retriveing path. Make sure the workspace/folder is valid!");
+				return;
+			}
+			const query = url + "/xref/" + project + relativePath + "#" + line.toString();
+			env.openExternal(vscode.Uri.parse(query));
+		}
+
+	});
+
 	let searchDefaultProject = vscode.commands.registerCommand('opengrok.searchDefaultProject', () => {
 		const {url, project} = getConfig();
 		if (!url) {
@@ -75,6 +105,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 	});	
 
+	
+	context.subscriptions.push(openAtLine);
 	context.subscriptions.push(searchDefaultProject);
 	context.subscriptions.push(searchAdditionalProjects);
 }

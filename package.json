@@ -3,7 +3,7 @@
 	"displayName": "OpenGrok",
 	"description": "OpenGrok extension for VS Code",
 	"publisher": "colaholicu",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
@@ -28,7 +28,7 @@
 			},
 			{
 				"command": "opengrok.searchAdditionalProjects",
-				"title": "OpenGrok selection [Incl. additional projects]"
+				"title": "OpenGrok selection [All setup projects]"
 			}
 
 		],
@@ -67,12 +67,12 @@
 				},
 				{
 					"command": "opengrok.searchDefaultProject",
-					"group": "opengrok",
+					"group": "opengrok@1",
 					"when": "config.opengrok.showInContextMenu && editorTextFocus && editorHasSelection"
 				},
 				{
 					"command": "opengrok.searchAdditionalProjects",
-					"group": "opengrok",
+					"group": "opengrok@2",
 					"when": "config.opengrok.showInContextMenu && config.opengrok.additionalProjectNames && editorTextFocus && editorHasSelection"
 				}
 			]
