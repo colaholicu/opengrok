@@ -1,5 +1,5 @@
 {
-  "name": "opengrok",
+  "name": "opengrok-vscode",
 	"displayName": "OpenGrok",
 	"description": "OpenGrok extension for VS Code",
 	"publisher": "colaholicu",
