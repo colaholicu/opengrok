@@ -1,5 +1,6 @@
 # Change Log
 
-0.0.1
+1.0.0
 
-- Initial release
+- Open a file at a line in the default project
+- Search for selected text within multiple projects

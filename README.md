@@ -16,10 +16,11 @@ This extension contributes the following settings:
 * `opengrok.additionalProjectNames`: additional projects used to search
 * `opengrok.showInContextMenu`: toggles the commands' visibility in the context menu
 
+Note: if `opengrok.additionalProjectNames` is left empty, `opengrok.searchAdditionalProjects` won't be visible in the context menu
 
 ## Release Notes
 
-### 0.0.1
+### 1.0.0
 
 Initial release.
 

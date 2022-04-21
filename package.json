@@ -3,7 +3,8 @@
 	"displayName": "OpenGrok",
 	"description": "OpenGrok extension for VS Code",
 	"publisher": "colaholicu",
-	"version": "0.0.4",
+	"icon": "images/OpenGrok_Logo.png",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
