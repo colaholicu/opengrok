@@ -5,9 +5,9 @@ import * as vscode from 'vscode';
 import { env } from 'vscode';
 
 export function getConfig() {
-	const url = vscode.workspace.getConfiguration('opengrok').serverURL;
-	const project = vscode.workspace.getConfiguration('opengrok').defaultProjectName;
-	const additionalProjects = vscode.workspace.getConfiguration('opengrok').additionalProjectNames;
+	const url = vscode.workspace.getConfiguration('opengrok-vscode').serverURL;
+	const project = vscode.workspace.getConfiguration('opengrok-vscode').defaultProjectName;
+	const additionalProjects = vscode.workspace.getConfiguration('opengrok-vscode').additionalProjectNames;
 	return { url, project, additionalProjects };
 }
 
@@ -17,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let openAtLine = vscode.commands.registerCommand('opengrok.openFileAtLine', () => {
+	let openAtLine = vscode.commands.registerCommand('opengrok-vscode.openFileAtLine', () => {
 		const {url, project} = getConfig();
 		if (!url) {
 			vscode.window.showErrorMessage("Server URL is empty.");
@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	});
 
-	let searchDefaultProject = vscode.commands.registerCommand('opengrok.searchDefaultProject', () => {
+	let searchDefaultProject = vscode.commands.registerCommand('opengrok-vscode.searchDefaultProject', () => {
 		const {url, project} = getConfig();
 		if (!url) {
 			vscode.window.showErrorMessage("Server URL is empty.");
@@ -71,7 +71,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	});
 
-	let searchAdditionalProjects = vscode.commands.registerCommand('opengrok.searchAdditionalProjects', () => {
+	let searchAdditionalProjects = vscode.commands.registerCommand('opengrok-vscode.searchAdditionalProjects', () => {
 		const {url, project, additionalProjects} = getConfig();
 		if (!url) {
 			vscode.window.showErrorMessage("Server URL is empty.");

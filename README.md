@@ -1,4 +1,4 @@
-# opengrok
+# opengrok-vscode
 
 OpenGrok extension for VS Code
 
@@ -11,14 +11,18 @@ OpenGrok extension for VS Code
 
 This extension contributes the following settings:
 
-* `opengrok.serverURL`: the OpenGrok's server URL
-* `opengrok.defaultProjectName`: the default project to search/open file in
-* `opengrok.additionalProjectNames`: additional projects used to search
-* `opengrok.showInContextMenu`: toggles the commands' visibility in the context menu
+* `opengrok-vscode.serverURL`: the OpenGrok's server URL
+* `opengrok-vscode.defaultProjectName`: the default project to search/open file in
+* `opengrok-vscode.additionalProjectNames`: additional projects used to search
+* `opengrok-vscode.showInContextMenu`: toggles the commands' visibility in the context menu
 
-Note: if `opengrok.additionalProjectNames` is left empty, `opengrok.searchAdditionalProjects` won't be visible in the context menu
+Note: if `opengrok-vscode.additionalProjectNames` is left empty, `opengrok-vscode.searchAdditionalProjects` won't be visible in the context menu
 
 ## Release Notes
+
+### 1.0.1
+
+Fixed extension id issues
 
 ### 1.0.0
 
