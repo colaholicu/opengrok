@@ -1,5 +1,9 @@
 # Change Log
 
+1.0.2
+
+- Fixed wrong link in description
+
 1.0.1
 
 - Fixed extension id issues

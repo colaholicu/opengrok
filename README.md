@@ -20,9 +20,9 @@ Note: if `opengrok-vscode.additionalProjectNames` is left empty, `opengrok-vscod
 
 ## Release Notes
 
-### 1.0.1
+### 1.0.2
 
-Fixed extension id issues
+Minor package fixes
 
 ### 1.0.0
 

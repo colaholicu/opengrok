@@ -4,7 +4,7 @@
 	"description": "OpenGrok extension for VS Code",
 	"publisher": "colaholicu",
 	"icon": "images/OpenGrok_Logo.png",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
@@ -81,7 +81,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git://github.com/colaholicu/opengrok-vscode.git"
+		"url": "git://github.com/colaholicu/opengrok.git"
 	  },
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
