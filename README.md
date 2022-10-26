@@ -15,6 +15,7 @@ This extension contributes the following settings:
 * `opengrok-vscode.defaultProjectName`: the default project to search/open file in
 * `opengrok-vscode.additionalProjectNames`: additional projects used to search
 * `opengrok-vscode.showInContextMenu`: toggles the commands' visibility in the context menu
+* `opengrok-vscode.openExternal`: the command will open the result with system default application (in browser, e.g.) or in vscode
 
 Note: if `opengrok-vscode.additionalProjectNames` is left empty, `opengrok-vscode.searchAdditionalProjects` won't be visible in the context menu
 
