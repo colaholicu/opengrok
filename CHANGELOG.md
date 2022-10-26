@@ -1,5 +1,9 @@
 # Change Log
 
+1.1.0
+
+- Added support to show results inside VS Code
+
 1.0.2
 
 - Fixed wrong link in description

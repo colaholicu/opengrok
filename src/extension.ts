@@ -1,6 +1,5 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { config } from 'process';
 import * as vscode from 'vscode';
 import { env } from 'vscode';
 
@@ -45,6 +44,8 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
+		const useActiveColumn = vscode.workspace.getConfiguration('opengrok-vscode').useActiveColumn;
+
 		const editor = vscode.window.activeTextEditor;
 		if (editor) {
 			const filePath = editor.document.uri.path;
@@ -63,7 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
 				const panel = vscode.window.createWebviewPanel(
 					'opengrok', // Identifies the type of the webview. Used internally
 					'OpenGrok', // Title of the panel displayed to the user
-					vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
+					useActiveColumn ? vscode.ViewColumn.Active : vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
 					{} // Webview options. More on these later.
 				);
 				panel.webview.html = getWebviewContent(query);
@@ -89,6 +90,7 @@ export function activate(context: vscode.ExtensionContext) {
 		if (editor) {
 			const document = editor.document;
 			const selection = editor.selection;
+			const useActiveColumn = vscode.workspace.getConfiguration('opengrok-vscode').useActiveColumn;			
 
 			// Get the word within the selection
 			const selectedText = document.getText(selection);
@@ -97,7 +99,7 @@ export function activate(context: vscode.ExtensionContext) {
 				const panel = vscode.window.createWebviewPanel(
 					'opengrok', // Identifies the type of the webview. Used internally
 					'OpenGrok', // Title of the panel displayed to the user
-					vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
+					useActiveColumn ? vscode.ViewColumn.Active : vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
 					{} // Webview options. More on these later.
 				);
 				panel.webview.html = getWebviewContent(query);
@@ -126,6 +128,7 @@ export function activate(context: vscode.ExtensionContext) {
 		if (editor) {
 			const document = editor.document;
 			const selection = editor.selection;
+			const useActiveColumn = vscode.workspace.getConfiguration('opengrok-vscode').useActiveColumn;
 
 			// Get the word within the selection
 			const selectedText = document.getText(selection);
@@ -142,7 +145,7 @@ export function activate(context: vscode.ExtensionContext) {
 				const panel = vscode.window.createWebviewPanel(
 					'opengrok', // Identifies the type of the webview. Used internally
 					'OpenGrok', // Title of the panel displayed to the user
-					vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
+					useActiveColumn ? vscode.ViewColumn.Active : vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
 					{} // Webview options. More on these later.
 				);
 				panel.webview.html = getWebviewContent(query);

@@ -4,7 +4,7 @@
 	"description": "OpenGrok extension for VS Code",
 	"publisher": "colaholicu",
 	"icon": "images/OpenGrok_Logo.png",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"engines": {
 		"vscode": "^1.66.0"
 	},
@@ -59,6 +59,11 @@
 					"type": "boolean",
 					"default": false,
 					"description": "Opens the result externally using the default application (in browser, e.g.)."
+				},
+				"opengrok-vscode.useActiveColumn": {
+					"type": "boolean",
+					"default": false,
+					"description": "If openExternal is true, it will open the web view inside the active column instead of an additional one."
 				}
 			}
 		},
