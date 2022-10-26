@@ -1,5 +1,5 @@
 {
-  "name": "opengrok-vscode",
+	"name": "opengrok-vscode",
 	"displayName": "OpenGrok",
 	"description": "OpenGrok extension for VS Code",
 	"publisher": "colaholicu",
@@ -12,7 +12,7 @@
 		"Other"
 	],
 	"activationEvents": [
-        "onCommand:opengrok-vscode.openFileAtLine",
+		"onCommand:opengrok-vscode.openFileAtLine",
 		"onCommand:opengrok-vscode.searchDefaultProject",
 		"onCommand:opengrok-vscode.searchAdditionalProjects"
 	],
@@ -31,32 +31,35 @@
 				"command": "opengrok-vscode.searchAdditionalProjects",
 				"title": "OpenGrok selection [All setup projects]"
 			}
-
 		],
 		"configuration": {
 			"title": "OpenGrok",
 			"properties": {
-			  	"opengrok-vscode.showInContextMenu": {
+				"opengrok-vscode.showInContextMenu": {
 					"type": "boolean",
 					"default": true,
 					"description": "Show the 'OpenGrok Search selection' command in the context menu."
-			  	},
+				},
 				"opengrok-vscode.serverURL": {
 					"type": "string",
 					"default": "",
 					"description": "OpenGrok server URL."
-			  	},
+				},
 				"opengrok-vscode.defaultProjectName": {
 					"type": "string",
 					"default": "",
 					"description": "The default project to search/open file in."
-			  	},
-				  "opengrok-vscode.additionalProjectNames": {
+				},
+				"opengrok-vscode.additionalProjectNames": {
 					"type": "string",
 					"default": "",
 					"description": "Additional projects used to search, separated by commas"
-			  	}
-
+				},
+				"opengrok-vscode.openExternal": {
+					"type": "boolean",
+					"default": false,
+					"description": "Opens the result externally using the default application (in browser, e.g.)."
+				}
 			}
 		},
 		"menus": {
@@ -77,12 +80,12 @@
 					"when": "config.opengrok-vscode.showInContextMenu && config.opengrok-vscode.additionalProjectNames && editorTextFocus && editorHasSelection"
 				}
 			]
-		  }
+		}
 	},
 	"repository": {
 		"type": "git",
 		"url": "git://github.com/colaholicu/opengrok.git"
-	  },
+	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -p ./",

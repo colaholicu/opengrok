@@ -8,8 +8,25 @@ export function getConfig() {
 	const url = vscode.workspace.getConfiguration('opengrok-vscode').serverURL;
 	const project = vscode.workspace.getConfiguration('opengrok-vscode').defaultProjectName;
 	const additionalProjects = vscode.workspace.getConfiguration('opengrok-vscode').additionalProjectNames;
-	return { url, project, additionalProjects };
+	const openExternal = vscode.workspace.getConfiguration('opengrok-vscode').openExternal;
+	return { url, project, additionalProjects, openExternal };
 }
+
+const getWebviewContent = (src: string) => (`<!DOCTYPE html>
+<html lang="en"">
+<head>
+	<meta charset="UTF-8">
+	<title>Preview</title>
+	<style>
+		html { width: 100%; height: 100%; min-height: 100%; display: flex; }
+		body { flex: 1; display: flex; }
+		iframe { flex: 1; border: none; background: white; }
+	</style>
+</head>
+<body>
+	<iframe src="${src}"></iframe>
+</body>
+</html>`);
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -18,7 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
 	let openAtLine = vscode.commands.registerCommand('opengrok-vscode.openFileAtLine', () => {
-		const {url, project} = getConfig();
+		const { url, project, openExternal } = getConfig();
 		if (!url) {
 			vscode.window.showErrorMessage("Server URL is empty.");
 			return;
@@ -33,8 +50,8 @@ export function activate(context: vscode.ExtensionContext) {
 			const filePath = editor.document.uri.path;
 			const line = editor.selection.active.line + 1;
 			let relativePath = '';
-			if(vscode.workspace.workspaceFolders !== undefined) {
-				const rootPath = vscode.workspace.workspaceFolders[0].uri.path ;
+			if (vscode.workspace.workspaceFolders !== undefined) {
+				const rootPath = vscode.workspace.workspaceFolders[0].uri.path;
 				relativePath = filePath.split(rootPath)[1];
 			}
 			else {
@@ -42,13 +59,23 @@ export function activate(context: vscode.ExtensionContext) {
 				return;
 			}
 			const query = url + "/xref/" + project + relativePath + "#" + line.toString();
-			env.openExternal(vscode.Uri.parse(query));
+			if (!openExternal) {
+				const panel = vscode.window.createWebviewPanel(
+					'opengrok', // Identifies the type of the webview. Used internally
+					'OpenGrok', // Title of the panel displayed to the user
+					vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
+					{} // Webview options. More on these later.
+				);
+				panel.webview.html = getWebviewContent(query);
+			} else {
+				env.openExternal(vscode.Uri.parse(query));
+			}
 		}
 
 	});
 
 	let searchDefaultProject = vscode.commands.registerCommand('opengrok-vscode.searchDefaultProject', () => {
-		const {url, project} = getConfig();
+		const { url, project, openExternal } = getConfig();
 		if (!url) {
 			vscode.window.showErrorMessage("Server URL is empty.");
 			return;
@@ -65,14 +92,24 @@ export function activate(context: vscode.ExtensionContext) {
 
 			// Get the word within the selection
 			const selectedText = document.getText(selection);
-			const query = url + "/search?project=" + project + "&q=" + selectedText + "&defs=&refs=&path=&hist=&type=";
-			env.openExternal(vscode.Uri.parse(query));
+			const query = url + "/search?project=" + project + "&full=" + selectedText + "&defs=&refs=&path=&hist=&type=";
+			if (!openExternal) {
+				const panel = vscode.window.createWebviewPanel(
+					'opengrok', // Identifies the type of the webview. Used internally
+					'OpenGrok', // Title of the panel displayed to the user
+					vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
+					{} // Webview options. More on these later.
+				);
+				panel.webview.html = getWebviewContent(query);
+			} else {
+				env.openExternal(vscode.Uri.parse(query));
+			}
 		}
 
 	});
 
 	let searchAdditionalProjects = vscode.commands.registerCommand('opengrok-vscode.searchAdditionalProjects', () => {
-		const {url, project, additionalProjects} = getConfig();
+		const { url, project, additionalProjects, openExternal } = getConfig();
 		if (!url) {
 			vscode.window.showErrorMessage("Server URL is empty.");
 			// return;
@@ -98,19 +135,29 @@ export function activate(context: vscode.ExtensionContext) {
 				let trimmedProject = project.trim();
 				if (trimmedProject.length !== 0) {
 					projectsQueryString += "&project=" + trimmedProject;
-				}				
+				}
 			});
-			const query = url + "/search?project=" + projectsQueryString + "&q=" + selectedText + "&defs=&refs=&path=&hist=&type=";
-			env.openExternal(vscode.Uri.parse(query));
+			const query = url + "/search?project=" + projectsQueryString + "&full=" + selectedText + "&defs=&refs=&path=&hist=&type=";
+			if (!openExternal) {
+				const panel = vscode.window.createWebviewPanel(
+					'opengrok', // Identifies the type of the webview. Used internally
+					'OpenGrok', // Title of the panel displayed to the user
+					vscode.ViewColumn.Two, // Editor column to show the new webview panel in.
+					{} // Webview options. More on these later.
+				);
+				panel.webview.html = getWebviewContent(query);
+			} else {
+				env.openExternal(vscode.Uri.parse(query));
+			}
 		}
 
-	});	
+	});
 
-	
+
 	context.subscriptions.push(openAtLine);
 	context.subscriptions.push(searchDefaultProject);
 	context.subscriptions.push(searchAdditionalProjects);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
